@@ -74,7 +74,10 @@ typedef struct {
 #define G m->counter[6]
 #define H m->counter[7]
 
-static const uint32_t mavlink_sha256_constant_256[64] = {
+#if !defined(DEFINE_MAVLINK_CRC)
+extern const uint32_t mavlink_sha256_constant_256[64];
+#else
+extern const uint32_t mavlink_sha256_constant_256[64] = {
     0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
     0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
     0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -92,6 +95,7 @@ static const uint32_t mavlink_sha256_constant_256[64] = {
     0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
     0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
+#endif
 
 MAVLINK_HELPER void mavlink_sha256_init(mavlink_sha256_ctx *m)
 {
